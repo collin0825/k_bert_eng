@@ -49,7 +49,7 @@ K-BERT
 ├── models
 │   ├── google_config.json
 │   ├── google_model.bin
-│   └── google_vocab.txt
+│   └── vocab.txt
 ├── outputs
 ├── uer
 ├── README.md
@@ -68,7 +68,7 @@ Run example on Book review with CnDbpedia:
 CUDA_VISIBLE_DEVICES='0' nohup python3 -u run_kbert_cls.py \
     --pretrained_model_path ./models/google_model.bin \
     --config_path ./models/google_config.json \
-    --vocab_path ./models/google_vocab.txt \
+    --vocab_path ./models/vocab.txt \
     --train_path ./datasets/book_review/train.tsv \
     --dev_path ./datasets/book_review/dev.tsv \
     --test_path ./datasets/book_review/test.tsv \
@@ -121,7 +121,7 @@ Run an example on the msra_ner dataset with CnDbpedia:
 CUDA_VISIBLE_DEVICES='0' nohup python3 -u run_kbert_ner.py \
     --pretrained_model_path ./models/google_model.bin \
     --config_path ./models/google_config.json \
-    --vocab_path ./models/google_vocab.txt \
+    --vocab_path ./models/vocab.txt \
     --train_path ./datasets/msra_ner/train.tsv \
     --dev_path ./datasets/msra_ner/dev.tsv \
     --test_path ./datasets/msra_ner/test.tsv \
