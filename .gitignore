@@ -98,3 +98,9 @@ ENV/
 # data
 *_results.tsv
 *.out
+
+# kg
+brain/kgs/primeKG.spo
+
+# model
+converModel/pytorch_model.bin
