@@ -151,6 +151,7 @@ def main():
                         begin_ids.append(len(labels_map))
                     labels_map[l] = len(labels_map)
     
+    print(begin_ids)
     print("Labels: ", labels_map)
     args.labels_num = len(labels_map)
 
@@ -286,15 +287,17 @@ def main():
             vm_ids_batch = vm_ids_batch.long().to(device)
 
             loss, _, pred, gold = model(input_ids_batch, label_ids_batch, mask_ids_batch, pos_ids_batch, vm_ids_batch)
+            print(pred)
+            print(pred[0].item())
             
             for j in range(gold.size()[0]):
                 if gold[j].item() in begin_ids:
                     gold_entities_num += 1
- 
+                    
             for j in range(pred.size()[0]):
                 if pred[j].item() in begin_ids and gold[j].item() != labels_map["[PAD]"]:
                     pred_entities_num += 1
-
+                    
             pred_entities_pos = []
             gold_entities_pos = []
             start, end = 0, 0
@@ -334,11 +337,20 @@ def main():
                     continue
                 else: 
                     correct += 1
-
+                    
         print("Report precision, recall, and f1:")
-        p = correct/pred_entities_num
-        r = correct/gold_entities_num
-        f1 = 2*p*r/(p+r)
+        print("gold_entities_num: {}".format(gold_entities_num))
+        print("pred_entities_num: {}".format(pred_entities_num))
+        print("correct: {}".format(correct))
+        p = 0
+        r = 0
+        f1 = 0
+        if pred_entities_num != 0:
+            p = correct/pred_entities_num
+        if gold_entities_num != 0:
+            r = correct/gold_entities_num
+        if p != 0 or r != 0:
+            f1 = 2*p*r/(p+r)
         print("{:.3f}, {:.3f}, {:.3f}".format(p,r,f1))
 
         return f1
